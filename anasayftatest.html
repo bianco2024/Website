@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğlenceli Web Sayfası</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            position: relative; /* İzlerin konumunu ayarlamak için */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .message {
+            font-size: 24px;
+            margin: 20px;
+            color: #555;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .trail {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5); /* İz rengi ve saydamlık */
+            pointer-events: none; /* İzin vermek için tıklanabilirliğini devre dışı bırak */
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3; /* Hover rengi */
+        }
+    </style>
+</head>
+<body>
+    <h1>2021-den Xidmetinizdeyik</h1>
+    <div class="message">Etrafli Melumat Ucun Instagram Adresimize Kecid Edin</div>
+
+    <!-- Geri gitme butonu -->
+    <button class="back-button" onclick="goBack()">Geri Git</button>
+
+    <script>
+        // Rastgele renk oluşturma fonksiyonu
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Fare hareket ettiğinde iz oluştur
+        document.body.addEventListener('mousemove', function(event) {
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+
+            // İzlerin boyutunu ayarla
+            const size = Math.random() * 20 + 5; // 5 ile 25 piksel arasında boyut
+            trail.style.width = size + 'px';
+            trail.style.height = size + 'px';
+            trail.style.left = event.clientX - size / 2 + 'px'; // Ortalanmış
+            trail.style.top = event.clientY - size / 2 + 'px'; // Ortalanmış
+
+            // İzleri sayfaya ekle
+            document.body.appendChild(trail);
+
+            // İz 0.5 saniye sonra silinir
+            setTimeout(() => {
+                trail.remove();
+            }, 500);
+        });
+
+        // Sayfada tıklama olayını dinle
+        document.body.addEventListener('click', function(event) {
+            // Daire oluştur
+            const circle = document.createElement('div');
+            circle.className = 'circle';
+
+            // Dairenin boyutunu ve konumunu ayarla
+            const size = Math.random() * 50 + 10; // 10 ile 60 piksel arasında boyut
+            circle.style.width = size + 'px';
+            circle.style.height = size + 'px';
+            circle.style.backgroundColor = getRandomColor();
+            circle.style.left = event.clientX - size / 2 + 'px'; // Ortalanmış
+            circle.style.top = event.clientY - size / 2 + 'px'; // Ortalanmış
+
+            // Daireyi sayfaya ekle
+            document.body.appendChild(circle);
+
+            // Daire 1 saniye sonra silinir
+            setTimeout(() => {
+                circle.remove();
+            }, 1000);
+        });
+
+        // Geri gitme fonksiyonu
+        function goBack() {
+            window.location.href = 'anasayfa.html'; // anasayfa.html sayfasına yönlendir
+        }
+    </script>
+</body>
+</html>

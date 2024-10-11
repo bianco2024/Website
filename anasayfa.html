@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anasayfa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            text-align: center;
+            margin: 0;
+            height: 100vh; /* Yüksekliği tam sayfa yapar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Dikey ortalama */
+            align-items: center; /* Yatay ortalama */
+            background-image: url('https://avatars.mds.yandex.net/i?id=f3c33dadb680f34e5c1fa89d084af8df_l-5333380-images-thumbs&n=13'); /* Arka plan resmi */
+            background-size: cover; /* Resmi kaplamak için */
+            background-position: center; /* Ortalamak için */
+            filter: brightness(0.8); /* Resmin parlaklığını ayarla */
+            overflow: hidden; /* Taşmayı önle */
+        }
+        h1 {
+            margin-bottom: 20px; /* Başlık ile butonlar arasındaki mesafe */
+            font-size: 48px; /* Yazı boyutu */
+            animation: colorChange 3s infinite; /* Renk değişim animasyonu */
+        }
+        @keyframes colorChange {
+            0% { color: yellow; }
+            25% { color: orange; }
+            50% { color: red; }
+            75% { color: black; }
+            100% { color: yellow; }
+        }
+        button {
+            background-color: #6f42c1; /* Mor arka plan */
+            color: white; /* Beyaz yazı rengi */
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            position: relative;
+        }
+        button:hover {
+            background-color: #5a32a3; /* Hover efekti */
+        }
+        /* Butonlar için yıldız animasyonu */
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: yellow;
+            border-radius: 50%;
+            animation: star-animation 1s linear forwards;
+        }
+        @keyframes star-animation {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Fare takibi simler */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle-animation 0.5s forwards;
+        }
+
+        @keyframes sparkle-animation {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>HOŞ GELDİNİZ</h1>
+    <a href="https://www.instagram.com/accessorio.az/?igsh=MTUxdGx3cTM2ZHRzZQ%3D%3D" target="_blank">
+        <button onmouseover="createStars(event)">Instagram</button>
+    </a>
+    <button onmouseover="createStars(event)" onclick="window.location.href='sayfa2.html';">Hakkında</button>
+
+    <script>
+        function createStars(event) {
+            const button = event.target;
+            for (let i = 0; i < 10; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * button.offsetWidth}px`; // Rastgele yatay konum
+                star.style.top = `${Math.random() * button.offsetHeight}px`; // Rastgele dikey konum
+                button.appendChild(star);
+
+                // Belirli bir süre sonra yıldızları kaldır
+                setTimeout(() => {
+                    star.remove();
+                }, 1000);
+            }
+        }
+
+        // Fare hareketini takip eden simleri oluşturma
+        document.addEventListener('mousemove', function(e) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = `${e.pageX}px`;
+            sparkle.style.top = `${e.pageY}px`;
+            document.body.appendChild(sparkle);
+
+            // Simler belirli bir süre sonra kaybolur
+            setTimeout(() => {
+                sparkle.remove();
+            }, 500); // 500ms sonra sim kaybolur
+        });
+    </script>
+</body>
+</html>
